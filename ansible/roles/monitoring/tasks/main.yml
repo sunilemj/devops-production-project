@@ -1,0 +1,7 @@
+- name: Run Prometheus container
+  shell: |
+    docker run -d     -p 9090:9090     --name prometheus     prom/prometheus
+
+- name: Run Grafana container
+  shell: |
+    docker run -d     -p 3000:3000     --name grafana     grafana/grafana
