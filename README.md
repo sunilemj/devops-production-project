@@ -1,78 +1,70 @@
-# 🚀 DevOps Production Project
+# DevOps End-to-End Project
 
-## 📌 Overview
-This project demonstrates a complete end-to-end DevOps pipeline using modern tools and best practices. It automates infrastructure provisioning, configuration, deployment, and monitoring.
+## What this project does
 
----
-
-## 🧱 Architecture
-
-- Terraform → Infrastructure provisioning (EC2, ECR, IAM, Security Groups)
-- Ansible → Server configuration & deployment automation
-- Docker → Containerization
-- AWS ECR → Image registry
-- GitHub Actions → CI/CD pipeline
-- Prometheus & Grafana → Monitoring
+This project shows how I built a complete DevOps pipeline from scratch using AWS and common industry tools. The goal was to automate everything — from infrastructure creation to application deployment and monitoring.
 
 ---
 
-## 🔄 Pipeline Flow
+## Tools used
 
-1. Code pushed to GitHub
-2. GitHub Actions triggers deployment
-3. Ansible connects to EC2 via SSH
-4. Application is cloned from GitHub
-5. Docker image is built
-6. Image is pushed to AWS ECR
-7. Container is deployed on EC2
-8. Monitoring enabled using Prometheus & Grafana
+- Terraform → create infrastructure (EC2, security groups, ECR)
+- Ansible → configure server and deploy application
+- Docker → package application
+- AWS ECR → store Docker images
+- GitHub Actions → automate deployment (CI/CD)
+- Prometheus & Grafana → monitoring
 
 ---
 
-## 🌐 Access
+## How it works
 
-Application:
-http://18.61.166.102:5000
-
-Grafana:
-http://18.61.166.102:3000
-
-Prometheus:
-http://18.61.166.102:9090
+1. Infrastructure is created using Terraform  
+2. Ansible configures the EC2 instance  
+3. Application code is pulled from GitHub  
+4. Docker image is built and pushed to ECR  
+5. Container runs on EC2  
+6. GitHub Actions automates this process on every push  
+7. Monitoring is available via Grafana and Prometheus  
 
 ---
 
-## 📸 Screenshots
+## Screenshots (Proof)
 
-### Application Running on EC2
+Application running on EC2  
 ![App](docs/screenshots/screenshots_app_ec2.png)
 
-### CI/CD Pipeline (GitHub Actions)
+CI/CD pipeline  
 ![CI/CD](docs/screenshots/screenshots_github_actions.png)
 
-### Grafana Dashboard
+Grafana monitoring  
 ![Grafana](docs/screenshots/screenshots_grafana.png)
 
-### Prometheus Metrics
+Prometheus metrics  
 ![Prometheus](docs/screenshots/screenshots_prometheus.png)
 
 ---
 
-## 🧠 Key Learnings
+## Important note
 
-- Infrastructure as Code using Terraform
-- Configuration management using Ansible
-- Containerization with Docker
-- CI/CD automation using GitHub Actions
-- Monitoring with Prometheus & Grafana
-- Debugging real-world DevOps issues
+The infrastructure was destroyed after testing to avoid unnecessary AWS costs. Screenshots are included as proof of working deployment.
 
 ---
 
-## 🎯 Outcome
+## What I learned
 
-Built a production-style DevOps pipeline capable of:
-- Automated deployment
-- Infrastructure recreation
-- Monitoring and observability
+- How to automate infrastructure using Terraform  
+- How to use Ansible for real deployments  
+- Docker image lifecycle (build → push → run)  
+- Setting up CI/CD using GitHub Actions  
+- Debugging real issues (SSH, Docker, dependencies, Terraform state)  
+- Basics of monitoring using Prometheus and Grafana  
+
+---
+
+## Next improvements
+
+- Move to Kubernetes (EKS) for scaling  
+- Add load balancer  
+- Improve monitoring dashboards  
 
