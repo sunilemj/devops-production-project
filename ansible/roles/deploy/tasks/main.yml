@@ -1,0 +1,25 @@
+- name: Get AWS account ID
+  shell: aws sts get-caller-identity --query Account --output text
+  register: account_id
+
+- name: Login to ECR
+  shell: |
+    aws ecr get-login-password --region ap-south-2 | docker login --username AWS --password-stdin {{ account_id.stdout }}.dkr.ecr.ap-south-2.amazonaws.com
+
+- name: Build Docker image
+  shell: docker build -t devops-python-app /home/ubuntu/devops-production-project/app
+
+- name: Tag Docker image
+  shell: docker tag devops-python-app:latest {{ account_id.stdout }}.dkr.ecr.ap-south-2.amazonaws.com/devops-python-app:latest
+
+- name: Push Docker image to ECR
+  shell: docker push {{ account_id.stdout }}.dkr.ecr.ap-south-2.amazonaws.com/devops-python-app:latest
+
+- name: Stop existing container
+  shell: docker stop devops-container || true
+
+- name: Remove existing container
+  shell: docker rm devops-container || true
+
+- name: Run container
+  shell: docker run -d -p 5000:5000 --name devops-container {{ account_id.stdout }}.dkr.ecr.ap-south-2.amazonaws.com/devops-python-app:latest

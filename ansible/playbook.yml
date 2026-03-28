@@ -6,3 +6,5 @@
     - common
     - docker
     - awscli
+    - app
+    - deploy

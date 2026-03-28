@@ -1,0 +1,5 @@
+- name: Clone application repository
+  git:
+    repo: "https://github.com/sunilemj/devops-production-project.git"
+    dest: /home/ubuntu/devops-production-project
+    version: main
