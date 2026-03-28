@@ -20,9 +20,12 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 16.112.132.44 >> ~/.ssh/known_hosts
 
-      - name: Run Ansible playbook
+      - name: Install Ansible
         run: |
           sudo apt update
           sudo apt install -y ansible
+
+      - name: Run Ansible Playbook
+        run: |
           cd ansible
           ansible-playbook -i inventory.ini playbook.yml

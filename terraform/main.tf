@@ -33,6 +33,7 @@ resource "aws_security_group" "devops_sg" {
   name = "devops-sg"
 
   ingress {
+    description = "SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -40,8 +41,25 @@ resource "aws_security_group" "devops_sg" {
   }
 
   ingress {
+    description = "App"
     from_port   = 5000
     to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Grafana"
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Prometheus"
+    from_port   = 9090
+    to_port     = 9090
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -54,7 +72,7 @@ resource "aws_security_group" "devops_sg" {
   }
 }
 
-# EC2 Instance
+# EC2
 resource "aws_instance" "devops_server" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
@@ -70,27 +88,20 @@ resource "aws_instance" "devops_server" {
   }
 }
 
-# Output
-output "public_ip" {
-  value = aws_instance.devops_server.public_ip
-}
-
-# ECR Repository
+# ECR
 resource "aws_ecr_repository" "app_repo" {
   name = "devops-python-app"
 
   image_scanning_configuration {
     scan_on_push = true
   }
-
-  image_tag_mutability = "MUTABLE"
-
-  tags = {
-    Name = "devops-ecr-repo"
-  }
 }
 
-# Output ECR URL
+# Outputs
+output "public_ip" {
+  value = aws_instance.devops_server.public_ip
+}
+
 output "ecr_repo_url" {
   value = aws_ecr_repository.app_repo.repository_url
 }
