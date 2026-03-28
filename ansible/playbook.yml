@@ -1,0 +1,8 @@
+- name: Full DevOps Server Setup
+  hosts: web
+  become: yes
+
+  roles:
+    - common
+    - docker
+    - awscli

@@ -1,0 +1,14 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install base packages
+  apt:
+    name:
+      - curl
+      - unzip
+      - git
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+    state: present
